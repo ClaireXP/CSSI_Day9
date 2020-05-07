@@ -17,3 +17,12 @@
  *    width,
  */
 
+function setup() {
+  createCanvas(300, 300);
+}
+
+let theme
+
+function draw() {
+  
+}
