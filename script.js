@@ -7,6 +7,7 @@
  *    image,
  *    loadImage,
  *    random,
+ *    round,
  *    square,
  *    tint,
  */
@@ -18,7 +19,7 @@ const SCREEN_WIDTH = Math.round(SCREEN_HEIGHT * ASPECT_RATIO);
 const LOGO_SIZE = 100;
 let DVD_IMAGE;
 
-const LOGO_COUNT = 3;
+const LOGO_COUNT = 5;
 
 let logos;
 
@@ -34,10 +35,10 @@ function setup() {
   
   for (let i = 0; i < LOGO_COUNT; i++) {
     logos.push({
-      x: random(0, SCREEN_WIDTH - LOGO_SIZE),
-      y: random(0, SCREEN_HEIGHT - LOGO_SIZE),
-      xDelta: random([-1, 1]),
-      yDelta: random([-1, 1]),
+      x: round(random(0, SCREEN_WIDTH - LOGO_SIZE)),
+      y: round(random(0, SCREEN_HEIGHT - LOGO_SIZE)),
+      xDelta: random([-5, -3, -1, 1, 3, 5]),
+      yDelta: random([-5, -3, -1, 1, 3, 5]),
       color: randomColor(),
     })
   }
@@ -49,20 +50,20 @@ function draw() {
   // move Logos
   for (const logo of logos) {
     logo.x = logo.x + logo.xDelta;
-    if (logo.x === 0 && logo.xDelta === -1) {
-      logo.xDelta = 1;
+    if (logo.x < 0 && logo.xDelta < 0) {
+      logo.xDelta = logo.xDelta * -1;
       logo.color = randomColor();
-    } else if (logo.x + LOGO_SIZE === SCREEN_WIDTH && logo.xDelta === 1) {
-      logo.xDelta = -1;
+    } else if (logo.x + LOGO_SIZE > SCREEN_WIDTH && logo.xDelta > 0) {
+      logo.xDelta = logo.xDelta * -1;
       logo.color = randomColor();
     }
 
     logo.y = logo.y + logo.yDelta;
-    if (logo.y === 0 && logo.yDelta === -1) {
-      logo.yDelta = 1;
+    if (logo.y < 0 && logo.yDelta < 0) {
+      logo.yDelta = logo.yDelta * -1;
       logo.color = randomColor();
-    } else if (logo.y + LOGO_SIZE === SCREEN_HEIGHT && logo.yDelta === 1) {
-      logo.yDelta = -1;
+    } else if (logo.y + LOGO_SIZE > SCREEN_HEIGHT && logo.yDelta > 0) {
+      logo.yDelta = logo.yDelta * -1;
       logo.color = randomColor();
     }
 
