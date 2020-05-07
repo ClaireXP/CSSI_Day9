@@ -9,7 +9,7 @@ function setup(){
 let x = 50, y = 50;
 let w = 10, h = 50;
 
-function draw(){
+function draw() {
   // Code here runs continuously
   background(50)
 
@@ -18,4 +18,12 @@ function draw(){
           (10 + (w++ % 40)),
           (50 - (h++ % 40)))
 
+}
+
+function drawOlympicRings(x, y, ringSize) {
+  noFill();
+  strokeWeight(ringSize / 10);
+  
+  
+  
 }
