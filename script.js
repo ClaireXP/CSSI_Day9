@@ -3,30 +3,29 @@
 
 function setup(){
   // Code here runs only once
-  createCanvas(300, 300)
+  createCanvas(300, 300);
 }
 
 let x = 50, y = 50;
 let w = 10, h = 50;
 
 function draw() {
-  // Code here runs continuously
-  background(220)
+//   // Code here runs continuously
+//   background(220);
 
-  // ellipse(x++ % 200,
-  //         y++ % 200,
-  //         (10 + (w++ % 40)),
-  //         (50 - (h++ % 40)))
+//   // ellipse(x++ % 200,
+//   //         y++ % 200,
+//   //         (10 + (w++ % 40)),
+//   //         (50 - (h++ % 40)))
   
-  drawOlympicRings(0, 0, 50);
-
+//   ellipse(10, 10, 10, 10);
+//   // drawOlympicRings(0, 0, 50);
 }
 
 /**
  * @param {number} x x-coord of left end of pattern
- * @param {number} y y-coord of left end of pattern
- *
- *
+ * @param {number} y y-coord of top of pattern
+ * @param {number} ringSize
  */
 function drawOlympicRings(x, y, ringSize) {
   noFill();
