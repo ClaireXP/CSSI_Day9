@@ -58,7 +58,8 @@ function draw() {
 }
 
 function chooseColors() {
-  brushHue = (brushHue + 4) % 360;
+  // brushHue = (brushHue + 4) % 360;
+  brushHue = random(360)
   stroke(brushHue, 50, 80)
   fill(brushHue, 50, 80)
 }
