@@ -1,5 +1,6 @@
 // Name any p5.js functions we use in the global so Glitch can recognize them.
 /* global
+ *    mouseIsPressed,
  *    HSB,
  *    background,
  *    circle,
@@ -14,6 +15,7 @@
  *    mouseY,
  *    noStroke,
  *    stroke,
+ *    random, 
  *    resizeCanvas,
  *    rect,
  *    strokeWeight,
@@ -23,7 +25,7 @@
  *    windowWidth,
  */
 
-let brushHue
+let brushHue, lastX, lastY
 
 function setup() {
   // Canvas & color settings
@@ -36,11 +38,17 @@ function setup() {
 
 function draw() {
   chooseColors()
-  rect(mouseX, mouseY, 15, 15)
+  if (mouseIsPressed) {
+    rect(mouseX, mouseY, 15, 15)
+  }
 }
 
 function chooseColors() {
-  brushHue += 4;
+  brushHue = (brushHue + 4) % 360;
   stroke(brushHue, 50, 80)
   fill(brushHue, 50, 80)
 }
+
+// function mousePressed() {
+//   ellipse(random(width), random(height), 30, 30);
+// }
