@@ -14,39 +14,33 @@
  *    mouseY,
  *    noStroke,
  *    stroke,
+ *    resizeCanvas,
+ *    rect,
+ *    strokeWeight,
  *    text,
  *    width,
+ *    windowHeight,
+ *    windowWidth,
  */
 
+let brushHue
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  // Canvas & color settings
+  createCanvas(400, 400);
+  colorMode(HSB, 360, 100, 100);
+  brushHue = 0;
+  strokeWeight(6);
+  background(95);
 }
-
-function windowResized() {
-  createCanvas(windowWidth, windowHeight);
-}
-
-let isDarkTheme = false;
 
 function draw() {
-  isDarkTheme = mouseX > width / 2;
+  chooseColors()
+  rect(mouseX, mouseY, 15, 15)
+}
 
-  background(isDarkTheme ? 50 : 205);
-  
-  stroke(isDarkTheme ? 205 : 50);
-  line(width / 2, 0, width / 2, height);
-  
-  fill(isDarkTheme ? 205 : 50);
-  text('Flip the switch', 10, 20);
-  
-  noStroke();
-  
-  fill(isDarkTheme ? 'blue' : 'red');
-  circle(width / 4, height / 2, width / 10);
-  
-  fill(isDarkTheme ? 'red' : 'blue');
-  circle(3 * width / 4, height / 2, width / 10);
-  
-  fill(isDarkTheme ? 205 : 50);
-  circle(mouseX, mouseY, width / 10);
+function chooseColors() {
+  brushHue += 4;
+  stroke(brushHue, 50, 80)
+  fill(brushHue, 50, 80)
 }
