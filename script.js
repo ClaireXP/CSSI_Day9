@@ -25,28 +25,46 @@
  *    windowWidth,
  */
 
-let brushHue, lastX, lastY
+let brushHue, lastX, lastY, currentStrokeWeight, currentStrokeWeightDelta
 
 function setup() {
   // Canvas & color settings
   createCanvas(400, 400);
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
-  strokeWeight(6);
+  currentStrokeWeight = 6;
+  currentStrokeWeightDelta = 1;
   background(95);
 }
 
 function draw() {
   chooseColors()
-  if (mouseIsPressed) {
-    rect(mouseX, mouseY, 15, 15)
+  
+  currentStrokeWeight += currentStrokeWeightDelta;
+  if (currentStrokeWeight == 15 && currentStrokeWeightDelta == 1) {
+    currentStrokeWeightDelta = -1;
+  } else if (currentStrokeWeight == 5 && currentStrokeWeightDelta == -1) {
+    currentStrokeWeightDelta = 1;
   }
+  strokeWeight(currentStrokeWeight);
+
+  if (mouseIsPressed) {
+    // rect(mouseX, mouseY, 15, 15)
+    line(lastX, lastY, mouseX, mouseY);
+  }
+  
+  lastX = mouseX;
+  lastY = mouseY;
 }
 
 function chooseColors() {
   brushHue = (brushHue + 4) % 360;
   stroke(brushHue, 50, 80)
   fill(brushHue, 50, 80)
+}
+
+function keyPressed() {
+  background(95);
 }
 
 // function mousePressed() {
