@@ -1,31 +1,73 @@
+// Name any p5.js functions we use in the global so Glitch can recognize them.
+/* global
+ *    mouseIsPressed,
+ *    HSB,
+ *    background,
+ *    circle,
+ *    color,
+ *    colorMode,
+ *    createCanvas,
+ *    ellipse,
+ *    fill,
+ *    height,
+ *    line,
+ *    mouseX,
+ *    mouseY,
+ *    noStroke,
+ *    stroke,
+ *    random, 
+ *    resizeCanvas,
+ *    rect,
+ *    strokeWeight,
+ *    text,
+ *    width,
+ *    windowHeight,
+ *    windowWidth,
+ */
+
+let brushHue, lastX, lastY, currentStrokeWeight, currentStrokeWeightDelta
+
 function setup() {
-  createCanvas(400, 400);
+  // Canvas & color settings
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 360, 100, 100);
+  brushHue = 0;
+  currentStrokeWeight = 6;
+  currentStrokeWeightDelta = 1;
+  background(95);
 }
 
 function draw() {
-  background(220);
+  chooseColors()
+  
+  currentStrokeWeight += currentStrokeWeightDelta;
+  if (currentStrokeWeight == 15 && currentStrokeWeightDelta == 1) {
+    currentStrokeWeightDelta = -1;
+  } else if (currentStrokeWeight == 5 && currentStrokeWeightDelta == -1) {
+    currentStrokeWeightDelta = 1;
+  }
+  strokeWeight(currentStrokeWeight);
 
-  // Brush settings
-  noFill()
-  strokeWeight(5)
-
-  // Ring 1: Blue
-  stroke(10, 134, 205)
-  ellipse(50, 50, 50)
-
-  // Ring 2: Yellow
-  stroke(255, 214, 0)
-  ellipse(80, 80, 50)
-
-  // Ring 3: Black
-  stroke(0, 0, 0)
-  ellipse(110, 50, 50)
-
-  // Ring 4: Green
-  stroke(33, 176, 76)
-  ellipse(140, 80, 50)
-
-  // Ring 5:
-  stroke(234, 30, 35)
-  ellipse(170, 50, 50)
+  if (mouseIsPressed) {
+    // rect(mouseX, mouseY, 15, 15)
+    line(lastX, lastY, mouseX, mouseY);
+  }
+  
+  lastX = mouseX;
+  lastY = mouseY;
 }
+
+function chooseColors() {
+  brushHue = (brushHue + 4) % 360;
+  // brushHue = random(360)
+  stroke(brushHue, 50, 80)
+  fill(brushHue, 50, 80)
+}
+
+function keyPressed() {
+  background(95);
+}
+
+// function mousePressed() {
+//   ellipse(random(width), random(height), 30, 30);
+// }
