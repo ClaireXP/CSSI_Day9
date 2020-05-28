@@ -29,7 +29,7 @@ let brushHue
 
 function setup() {
   // Canvas & color settings
-  createCanvas(400, 400)
+  createCanvas(300, 300)
   colorMode(HSB, 360, 100, 100)
   brushHue = 0
   strokeWeight(6)
