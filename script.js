@@ -38,9 +38,15 @@
  *    stroke,
  *    rect,
  *    strokeWeight,
+ *    circle,
+ *    random,
+ *    width,
+ *    height,
+ *    mouseIsPressed,
  */
 
 let brushHue;
+let priorX, priorY;
 
 function setup() {
   // Canvas & color settings
@@ -49,11 +55,17 @@ function setup() {
   brushHue = 0;
   strokeWeight(6);
   background(95);
+  
+  priorX = 0;
+  priorY = 0;
 }
 
 function draw() {
   chooseColors();
-  rect(mouseX, mouseY, 15, 15);
+  
+  if (mouseIsPressed) {
+    rect(mouseX, mouseY, 5, 5);
+  }
 }
 
 function chooseColors() {
@@ -71,4 +83,9 @@ function chooseColors() {
 
 function keyPressed() {
   background(95);
+}
+
+function mousePressed() {
+  // circle(random(width), random(height), 30);
+  // circle(mouseX, mouseY, 30);
 }
