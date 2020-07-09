@@ -29,7 +29,8 @@ let brushHue, lastX, lastY, currentStrokeWeight, currentStrokeWeightDelta
 
 function setup() {
   // Canvas & color settings
-  createCanvas(windowWidth, windowHeight);
+  // createCanvas(windowWidth - 100, windowHeight - 100);
+  createCanvas(400, 400);
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   currentStrokeWeight = 6;
