@@ -23,7 +23,7 @@
 10) Mess with the saturation, brightness, and background colors to create
     different color families.
 11) Kind of like 6, but make the quill behave as in reality, where moving
-    the quill faster makes the stroke thinner.
+    the quill (mouse) faster makes the stroke thinner.
 */
 
 // Name any p5.js functions we use in the global so Glitch can recognize them.
