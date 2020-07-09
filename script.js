@@ -57,8 +57,18 @@ function draw() {
 }
 
 function chooseColors() {
-  // brushHue = brushHue + 1;
-  brushHue += 1
+  brushHue = brushHue + 1;
+  // brushHue += 1;
+  // brushHue++;
+  
+  if (brushHue == 360) {
+    brushHue = 0;
+  }
+  
   stroke(brushHue, 50, 80);
   fill(brushHue, 50, 80);
+}
+
+function keyPressed() {
+  background(95);
 }
