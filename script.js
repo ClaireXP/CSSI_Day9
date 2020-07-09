@@ -43,6 +43,7 @@
  *    width,
  *    height,
  *    mouseIsPressed,
+ *    line,
  */
 
 let brushHue;
@@ -64,8 +65,16 @@ function draw() {
   chooseColors();
   
   if (mouseIsPressed) {
-    rect(mouseX, mouseY, 5, 5);
+    // rect(mouseX, mouseY, 5, 5);
+
+    // I want to draw a line from the where the mouse
+    // is now to the where the mouse was in the last
+    // frame.
+    line(priorX, priorY, mouseX, mouseY);
   }
+  
+  priorX = mouseX;
+  priorY = mouseY;
 }
 
 function chooseColors() {
