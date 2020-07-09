@@ -3,12 +3,11 @@
  | |  _  | | | |   / _ \   | |     \___ \ 
  | |_| | | |_| |  / ___ \  | |___   ___) |
   \____|  \___/  /_/   \_\ |_____| |____/ 
-                                               
-1) Try out HSB colors
-2) Use a new function
-3) Respond to canvas size
-4) Use the mouse position to move the gray circle
-5) Flip the switch!
+                       
+1) Continuous drawing
+2) Use HSB to make new squares change colors
+3) Use mouse button to draw
+4) Make continuous strokes instead of dots
 
   ____    _____   ____    _____   _____    ____   _   _ 
  / ___|  |_   _| |  _ \  | ____| |_   _|  / ___| | | | |
@@ -16,14 +15,15 @@
   ___) |   | |   |  _ <  | |___    | |   | |___  |  _  |
  |____/    |_|   |_| \_\ |_____|   |_|    \____| |_| |_|
 
-6) Build in another toggle that responds to vertical movement
-   across the center of the screen.
-7) Build a painting app with colored rectangles in the corners.
-   Each time you move your mouse to a corner, have the background
-   change to match that color.
-8) Make your logo(s) change color when the mouse goes over them
-   (or close to them, if that's easier).
-
+6)  Have the strokeWeight oscillate between 5 and 15, emulating the
+    stroke of a quill.
+7)  Use other shapes in different configurations to create other effects.
+8)  Have the color only change when you press certain keys.
+9)  Have color change by assigning hue randomly.
+10) Mess with the saturation, brightness, and background colors to create
+    different color families.
+11) Kind of like 6, but make the quill behave as in reality, where moving
+    the quill faster makes the stroke thinner.
 */
 
 // Name any p5.js functions we use in the global so Glitch can recognize them.
