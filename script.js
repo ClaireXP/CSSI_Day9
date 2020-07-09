@@ -48,15 +48,17 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   strokeWeight(6);
+  background(95);
 }
 
 function draw() {
-  background(95);
   chooseColors();
   rect(mouseX, mouseY, 15, 15);
 }
 
 function chooseColors() {
+  // brushHue = brushHue + 1;
+  brushHue += 1
   stroke(brushHue, 50, 80);
   fill(brushHue, 50, 80);
 }
