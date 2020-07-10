@@ -56,14 +56,14 @@ function setup() {
   brushHue = 0;
   strokeWeight(6);
   background(95);
-  
+
   priorX = 0;
   priorY = 0;
 }
 
 function draw() {
   chooseColors();
-  
+
   if (mouseIsPressed) {
     // rect(mouseX, mouseY, 5, 5);
 
@@ -71,25 +71,25 @@ function draw() {
     // is now to the where the mouse was in the last
     // frame.
     line(priorX, priorY, mouseX, mouseY);
-  }
-  priorX = mouseX;
-  console.log("PriorX:");
-  console.log(priorX);
-  priorY = mouseY;
-  console.log("PriorY:");
-  console.log(priorY);
 
+    priorX = mouseX;
+    console.log("PriorX:");
+    console.log(priorX);
+    priorY = mouseY;
+    console.log("PriorY:");
+    console.log(priorY);
+  }
 }
 
 function chooseColors() {
   brushHue = brushHue + 1;
   // brushHue += 1;
   // brushHue++;
-  
+
   if (brushHue == 360) {
     brushHue = 0;
   }
-  
+
   stroke(brushHue, 50, 80);
   fill(brushHue, 50, 80);
 }
