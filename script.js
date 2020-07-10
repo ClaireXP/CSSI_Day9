@@ -51,7 +51,7 @@ let priorX, priorY;
 
 function setup() {
   // Canvas & color settings
-  createCanvas(300, 300);
+  createCanvas(400, 400);
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   strokeWeight(6);
@@ -71,10 +71,11 @@ function draw() {
     // is now to the where the mouse was in the last
     // frame.
     line(priorX, priorY, mouseX, mouseY);
-  }
   
   priorX = mouseX;
   priorY = mouseY;
+    
+}
 }
 
 function chooseColors() {
