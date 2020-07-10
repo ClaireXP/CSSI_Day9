@@ -74,9 +74,12 @@ function draw() {
   
   priorX = mouseX;
   priorY = mouseY;
+  
+  strokeWeight(1);
+  background(95);
+  text(JSON.stringify({priorX, priorY}, null, 2), 20, 20);
     
-}
-}
+}}
 
 function chooseColors() {
   brushHue = brushHue + 1;
