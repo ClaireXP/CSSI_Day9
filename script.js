@@ -71,11 +71,15 @@ function draw() {
     // is now to the where the mouse was in the last
     // frame.
     line(priorX, priorY, mouseX, mouseY);
-  
+  }
   priorX = mouseX;
+  console.log("PriorX:");
+  console.log(priorX);
   priorY = mouseY;
+  console.log("PriorY:");
+  console.log(priorY);
 
-}}
+}
 
 function chooseColors() {
   brushHue = brushHue + 1;
