@@ -52,10 +52,12 @@
  *    circle,
  *    loadImage,
  *    image,
+ *    fill,,
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
 let powerUpX, powerUpY;
+let imageSize;
 
 let marioImage;
 
@@ -75,6 +77,8 @@ function setup() {
   
   powerUpX = random(width);
   powerUpY = random(height);
+  
+  imageSize = 24;
 
   time = 1000;
   gameIsOver = false;
@@ -86,11 +90,8 @@ function draw() {
   
   drawCoins();
   drawMario();
+  drawMushrooms();
   
-  
-  // fill('red');
-  ellipse(powerUpX, powerUpY, 10);
-  // fill('white');
   
   text(`Time remaining: ${time}`, 20, 40);
   // text('Time remaining: ' + time, 20, 80);
@@ -106,12 +107,17 @@ function drawCoins() {
 }
 
 function drawMario() {
-  let imageWidth = 24;
-  let imageHeight = 24;
-  let marioX = mouseX - imageWidth / 2;
-  let marioY = mouseY - imageHeight / 2;
-  image(marioImage, marioX, marioY, imageWidth, imageHeight);
+  // We want the image to be centered over the mouse.
+  let marioX = mouseX - imageSize / 2;
+  let marioY = mouseY - imageSize / 2;
+  image(marioImage, marioX, marioY, imageSize, imageSize);
   // ellipse(mouseX, mouseY, 20);
+}
+
+function drawMushrooms() {
+  fill('red');
+  ellipse(powerUpX, powerUpY, 10);
+  fill('white');
 }
 
 function handleCoinCollision() {
@@ -122,8 +128,6 @@ function handleCoinCollision() {
   hit = collideCircleCircle(mouseX, mouseY, 20, coinX, coinY, 20);
   
   if (hit) {
-    text('hit!', 100, 100);
-    
     // Move the coin somewhere else.
     coinX = random(width);
     coinY = random(height);
