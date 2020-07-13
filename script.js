@@ -51,7 +51,7 @@
  *    collideCircleCircle,
  *    circle,
  *    loadImage, loadFont, textFont, textSize,
- *    image,
+ *    image, tint,
  *    fill,
  *    WEBGL,
  *    textAlign, RIGHT, LEFT,
@@ -64,17 +64,18 @@ let score, time, gameIsOver;
 let coin1X, coin1Y, coin1Rotation;
 let coin2X, coin2Y, coin2Rotation;
 let coin3X, coin3Y, coin3Rotation;
-let powerUpX, powerUpY;
+let mushroomX, mushroomY;
 let marioSize;
 let coinSize;
 
-let marioImage, coinImage;
+let marioImage, coinImage, mushroomImage;
 let productSansFont;
 
 function preload() {
-  backgroundImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fmario_64.webp?v=1594680390058');
+  backgroundImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fbackground_img.png?v=1594681039623');
   marioImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FPaper-Mario-icon.png?v=1594675429292');
   coinImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fcoin.png?v=1594677304311');
+  mushroomImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fmushroom.png?v=1594681222171');
   productSansFont = loadFont('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FProductSans-Regular.ttf?v=1594678726380');
 }
 
@@ -111,8 +112,7 @@ function setup() {
 }
 
 function draw() {
-  background(100);
-  
+  image(backgroundImage, -width / 2, -height / 2, width, height);
   
   drawGameData();
   drawCoins();
@@ -121,7 +121,7 @@ function draw() {
 }
 
 function drawGameData() {
-  fill('black');
+  fill('white');
   textAlign(LEFT);
   text(`Time remaining: ${time}`, 10 - width / 2, 20 - height / 2);
   textAlign(RIGHT);
@@ -177,13 +177,15 @@ function drawCoin(x, y, rotation) {
   let coinImageX = x - width / 2 - coinSize / 2;
   let coinImageY = y - height / 2 - coinSize / 2;
   
-  translate(coinImageX, coinImageY);
+  // translate coinSize/2 in the z direction. Because of the y-rotation
+  // half the coin was going behind the background image.
+  translate(coinImageX, coinImageY, coinSize / 2);
   rotateY(rotation);
   
   image(coinImage, -coinSize / 2, -coinSize / 2, coinSize, coinSize);
   
   rotateY(-rotation);
-  translate(-coinImageX, -coinImageY);
+  translate(-coinImageX, -coinImageY, -coinSize / 2);
 }
 
 function drawMario() {
