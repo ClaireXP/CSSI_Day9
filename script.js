@@ -52,6 +52,7 @@
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
+let powerUpX, powerUpY;
 
 function setup() {
   // Canvas & color settings
@@ -59,8 +60,13 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   backgroundColor = 95;
+  
   coinX = random(width);
   coinY = random(height);
+  
+  powerUpX = random(width);
+  powerUpY = random(height);
+
   time = 1000;
   gameIsOver = false;
   score = 0;
@@ -69,16 +75,23 @@ function setup() {
 function draw() {
   background(backgroundColor);
   ellipse(coinX, coinY, 20);
+  
   ellipse(mouseX, mouseY, 20);
+  
+  // fill('red');
+  ellipse(powerUpX, powerUpY, 10);
+  // fill('white');
+  
   text(`Time remaining: ${time}`, 20, 40);
   // text('Time remaining: ' + time, 20, 80);
   handleTime();
-  handleCollision();
+  handleCoinCollision();
+  handlePowerUpCollision();
   
   text(`Score: ${score}`, 20, 20);
 }
 
-function handleCollision() {
+function handleCoinCollision() {
   // We'll write code for what happens if your character hits a coin.
   
   // If the mouse is hitting the coin, move the coin and update the score
@@ -98,6 +111,10 @@ function handleCollision() {
   }
   
   // collideCircleCircle(mouseX,mouseY,150,200,200,100)
+}
+
+function handlePowerUpCollision() {
+  
 }
 
 function handleTime() {
