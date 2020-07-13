@@ -62,6 +62,7 @@ function draw() {
   ellipse(coinX, coinY, 20);
   ellipse(mouseX, mouseY, 20);
   text(`Time remaining: ${time}`, 20, 40);
+  text('Time remaining: ' + time, 20, 40);
 }
 
 function handleCollision() {
