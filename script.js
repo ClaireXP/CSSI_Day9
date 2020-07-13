@@ -51,12 +51,17 @@
  *    collideCircleCircle,
  *    circle,
  *    loadImage,
+ *    image,
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
 let powerUpX, powerUpY;
 
 let marioImage;
+
+function preload() {
+  marioImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FPaper-Mario-icon.png?v=1594675429292');
+}
 
 function setup() {
   // Canvas & color settings
@@ -65,7 +70,6 @@ function setup() {
   brushHue = 0;
   backgroundColor = 95;
   
-  marioImage = loadImage('https://icons.iconarchive.com/icons/ph03nyx/super-mario/48/Paper-Mario-icon.png');
   coinX = random(width);
   coinY = random(height);
   
@@ -81,8 +85,8 @@ function draw() {
   background(backgroundColor);
   
   drawCoins();
+  drawMario();
   
-  ellipse(mouseX, mouseY, 20);
   
   // fill('red');
   ellipse(powerUpX, powerUpY, 10);
@@ -98,7 +102,16 @@ function draw() {
 }
 
 function drawCoins() {
-  circle(mouseX, mouseY, 20);
+  circle(coinX, coinY, 20);
+}
+
+function drawMario() {
+  let imageWidth = 24;
+  let imageHeight = 24;
+  let marioX = mouseX - imageWidth / 2;
+  let marioY = mouseY - imageHeight / 2;
+  image(marioImage, marioX, marioY, imageWidth, imageHeight);
+  // ellipse(mouseX, mouseY, 20);
 }
 
 function handleCoinCollision() {
