@@ -64,9 +64,8 @@ let score, time, gameIsOver;
 let coin1X, coin1Y, coin1Rotation;
 let coin2X, coin2Y, coin2Rotation;
 let coin3X, coin3Y, coin3Rotation;
-let mushroomX, mushroomY;
-let marioSize;
-let coinSize;
+let mushroomX, mushroomY, shouldDrawMushroom;
+let marioSize, coinSize, mushroomSize, maxMarioSize;
 
 let marioImage, coinImage, mushroomImage;
 let productSansFont;
@@ -98,10 +97,13 @@ function setup() {
   coin3Y = random(height);
   coin3Rotation = random(360);
   
-  powerUpX = random(width);
-  powerUpY = random(height);
+  shouldDrawMushroom = true;
+  mushroomX = random(width);
+  mushroomY = random(height);
   
+  mushroomSize = 24;
   marioSize = 24;
+  maxMarioSize = 96;
   coinSize = 20;
 
   textFont(productSansFont);
@@ -115,8 +117,15 @@ function draw() {
   image(backgroundImage, -width / 2, -height / 2, width, height);
   
   drawGameData();
-  drawCoins();
-  drawMushrooms();
+  
+  if (!gameIsOver) {
+    drawCoins();
+
+    if (shouldDrawMushroom) {
+      drawMushroom();
+    }
+  }
+
   drawMario();
 }
 
@@ -128,9 +137,7 @@ function drawGameData() {
   text(`Score: ${score}`, width / 2 - 10, 20 - height / 2);
 
   if (time > 0) {
-    time = time - 1;
-    // time -= 1;
-    // time--;
+    time = time - 2;
   }
   
   if (time == 0) {
@@ -144,7 +151,6 @@ function drawCoins() {
   drawCoin(coin1X, coin1Y, coin1Rotation);
   coin1Rotation -= 5; 
   if (collideCircleCircle(mouseX, mouseY, marioSize, coin1X, coin1Y, coinSize)) {
-    // Move the coin somewhere else.
     coin1X = random(width);
     coin1Y = random(height);
     coin1Rotation = 0;
@@ -154,7 +160,6 @@ function drawCoins() {
   drawCoin(coin2X, coin2Y, coin2Rotation);  
   coin2Rotation -= 5; 
   if (collideCircleCircle(mouseX, mouseY, marioSize, coin2X, coin2Y, coinSize)) {
-    // Move the coin somewhere else.
     coin2X = random(width);
     coin2Y = random(height);
     coin2Rotation = 0;
@@ -162,9 +167,8 @@ function drawCoins() {
   }
 
   drawCoin(coin3X, coin3Y, coin3Rotation); 
-  coin3Rotation -= 5;  
+  coin3Rotation -= 5;
   if (collideCircleCircle(mouseX, mouseY, marioSize, coin3X, coin3Y, coinSize)) {
-    // Move the coin somewhere else.
     coin3X = random(width);
     coin3Y = random(height);
     coin3Rotation = 0;
@@ -173,7 +177,7 @@ function drawCoins() {
 }
 
 function drawCoin(x, y, rotation) {
-  // We want the image to be centered over the its coordinates.
+  // We want the image to be centered over its coordinates.
   let coinImageX = x - width / 2 - coinSize / 2;
   let coinImageY = y - height / 2 - coinSize / 2;
   
@@ -193,10 +197,27 @@ function drawMario() {
   let marioX = mouseX - width / 2 - marioSize / 2;
   let marioY = mouseY - height / 2 - marioSize / 2;
   image(marioImage, marioX, marioY, marioSize, marioSize);
-  // ellipse(mouseX, mouseY, 20);
 }
 
-function drawMushrooms() {
-  fill('red');
-  ellipse(powerUpX - width / 2, powerUpY - height / 2, 10);
+function drawMushroom() {
+  let mushroomImageX = mushroomX - width / 2 - mushroomSize / 2;
+  let mushroomImageY = mushroomY - height / 2 - mushroomSize / 2;
+  
+  image(mushroomImage, mushroomImageX, mushroomImageY, mushroomSize, mushroomSize);
+  
+  if (collideCircleCircle(mouseX, mouseY, marioSize, mushroomX, mushroomY, mushroomSize)) {
+    // Move the mushroom.
+    mushroomX = random(width);
+    mushroomY = random(height);
+    
+    // Grow Mario.
+    marioSize += 10;
+    if (marioSize > maxMarioSize) {
+      marioSize = maxMarioSize;
+      shouldDrawMushroom = false;
+    }
+    
+    // Get more time.
+    time += 50;
+  }
 }
