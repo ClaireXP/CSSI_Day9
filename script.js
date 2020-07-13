@@ -49,10 +49,14 @@
  *    createCanvas,
  *    text,
  *    collideCircleCircle,
+ *    circle,
+ *    loadImage,
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
 let powerUpX, powerUpY;
+
+let marioImage;
 
 function setup() {
   // Canvas & color settings
@@ -61,6 +65,7 @@ function setup() {
   brushHue = 0;
   backgroundColor = 95;
   
+  marioImage = loadImage('https://icons.iconarchive.com/icons/ph03nyx/super-mario/48/Paper-Mario-icon.png');
   coinX = random(width);
   coinY = random(height);
   
@@ -74,7 +79,8 @@ function setup() {
 
 function draw() {
   background(backgroundColor);
-  ellipse(coinX, coinY, 20);
+  
+  drawCoins();
   
   ellipse(mouseX, mouseY, 20);
   
@@ -91,6 +97,10 @@ function draw() {
   text(`Score: ${score}`, 20, 20);
 }
 
+function drawCoins() {
+  circle(mouseX, mouseY, 20);
+}
+
 function handleCoinCollision() {
   // We'll write code for what happens if your character hits a coin.
   
@@ -105,9 +115,7 @@ function handleCoinCollision() {
     coinX = random(width);
     coinY = random(height);
     
-    score += 1;
-    // score = score + 1
-    // score++
+    score++;
   }
   
   // collideCircleCircle(mouseX,mouseY,150,200,200,100)
