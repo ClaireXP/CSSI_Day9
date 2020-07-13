@@ -5,6 +5,7 @@
   \____|  \___/  /_/   \_\ |_____| |____/ 
                        
 -- Let's come up with goals together! --
+1) Make the time count down
 
   ____    _____   ____    _____   _____    ____   _   _ 
  / ___|  |_   _| |  _ \  | ____| |_   _|  / ___| | | | |
@@ -62,7 +63,8 @@ function draw() {
   ellipse(coinX, coinY, 20);
   ellipse(mouseX, mouseY, 20);
   text(`Time remaining: ${time}`, 20, 40);
-  text('Time remaining: ' + time, 20, 40);
+  // text('Time remaining: ' + time, 20, 80);
+  handleTime();
 }
 
 function handleCollision() {
@@ -70,5 +72,15 @@ function handleCollision() {
 }
 
 function handleTime() {
+  if (time > 0) {
+    time = time - 1;
+    // time -= 1;
+    // time--;
+  }
+  
+  if (time == 0) {
+    gameIsOver = true;
+  }
+  
   // We'll write code to handle the time.
 }
