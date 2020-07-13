@@ -80,7 +80,7 @@ function preload() {
 
 function setup() {
   const backgroundImageAspectRatio = 970/647;
-  const canvasWidth = window.innerWidth - 10;
+  const canvasWidth = Math.min(window.innerWidth - 20, 768);
   const canvasHeight = canvasWidth / backgroundImageAspectRatio;
   // Canvas & color settings
   createCanvas(canvasWidth, canvasHeight, WEBGL);
@@ -218,6 +218,6 @@ function drawMushroom() {
     }
     
     // Get more time.
-    time += 50;
+    time += 150;
   }
 }
