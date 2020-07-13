@@ -36,7 +36,7 @@
 
 // Name any p5.js functions we use in the global so Glitch can recognize them.
 /* global
- *    createCanvas,
+ *    createCanvas, WEBGL,
  *    colorMode,
  *    HSB,
  *    random,
@@ -54,13 +54,13 @@
  *    image,
  *    fill,
  *    WEBGL,
- *    textAlign,
- *    RIGHT,
- *    LEFT,
- *    rotateY,
+ *    textAlign, RIGHT, LEFT,
+ *    rotateY, translate, angleMode, DEGREES,
  */
 
-let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
+let brushHue, backgroundColor, score, time, gameIsOver, hit;
+let coin1X, coin1Y;
+coin2X, coin2Y, coin3X, coin3Y;
 let powerUpX, powerUpY;
 let marioSize;
 let coinSize, coinRotation;
@@ -81,8 +81,12 @@ function setup() {
   brushHue = 0;
   backgroundColor = 95;
   
-  coinX = random(width);
-  coinY = random(height);
+  coin1X = random(width);
+  coin1Y = random(height);
+  coin2X = random(width);
+  coin2Y = random(height);
+  coin3X = random(width);
+  coin3Y = random(height);
   
   powerUpX = random(width);
   powerUpY = random(height);
@@ -90,6 +94,7 @@ function setup() {
   marioSize = 24;
   coinSize = 20;
   coinRotation = 0;
+  angleMode(DEGREES);
 
   textFont(productSansFont);
   textSize(15);
@@ -126,21 +131,46 @@ function drawGameData() {
 }
 
 function drawCoins() {
-  // We want the image to be centered over the its coordinates.
-  let coinImageX = coinX - width / 2 - coinSize / 2;
-  let coinImageY = coinY - height / 2 - coinSize / 2;
-  coinRotation++;
-  rotateY(coinRotation);
-  image(coinImage, coinImageX, coinImageY, coinSize, coinSize);
-  rotateY(-coinRotation);
-  
-  // If Mario is hitting the coin, move the coin and update the score.
-  if (collideCircleCircle(mouseX, mouseY, marioSize, coinX, coinY, coinSize)) {
+  // Draw each coin; if Mario is hitting it, move it and update the score.
+
+  drawCoin(coin1X, coin1Y);  
+  if (collideCircleCircle(mouseX, mouseY, marioSize, coin1X, coin1Y, coinSize)) {
     // Move the coin somewhere else.
-    coinX = random(width);
-    coinY = random(height);
+    coin1X = random(width);
+    coin1Y = random(height);
     score++;
   }
+
+  drawCoin(coin2X, coin2Y);  
+  if (collideCircleCircle(mouseX, mouseY, marioSize, coin2X, coin2Y, coinSize)) {
+    // Move the coin somewhere else.
+    coin2X = random(width);
+    coin2Y = random(height);
+    score++;
+  }
+
+  drawCoin(coin3X, coin3Y);  
+  if (collideCircleCircle(mouseX, mouseY, marioSize, coin3X, coin3Y, coinSize)) {
+    // Move the coin somewhere else.
+    coin3X = random(width);
+    coin3Y = random(height);
+    score++;
+  }
+}
+
+function drawCoin(x, y) {
+  // We want the image to be centered over the its coordinates.
+  let coinImageX = x - width / 2 - coinSize / 2;
+  let coinImageY = y - height / 2 - coinSize / 2;
+  coinRotation -= 5;
+  
+  translate(coinImageX, coinImageY);
+  rotateY(coinRotation);
+  
+  image(coinImage, - coinSize / 2, - coinSize / 2, coinSize, coinSize);
+  
+  rotateY(-coinRotation);
+  translate(-coinImageX, -coinImageY);
 }
 
 function drawMario() {
