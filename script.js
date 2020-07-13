@@ -52,22 +52,25 @@
  *    circle,
  *    loadImage,
  *    image,
- *    fill,,
+ *    fill,
+ *    WEBGL,
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
 let powerUpX, powerUpY;
-let imageSize;
+let marioSize;
+let coinSize, coinRotation;
 
-let marioImage;
+let marioImage, coinImage;
 
 function preload() {
   marioImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FPaper-Mario-icon.png?v=1594675429292');
+  coinImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fcoin.png?v=1594677304311');
 }
 
 function setup() {
   // Canvas & color settings
-  createCanvas(400, 400);
+  createCanvas(400, 400, WEBGL);
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   backgroundColor = 95;
@@ -78,7 +81,9 @@ function setup() {
   powerUpX = random(width);
   powerUpY = random(height);
   
-  imageSize = 24;
+  marioSize = 24;
+  coinSize = 20;
+  coinRotation = 0;
 
   time = 1000;
   gameIsOver = false;
@@ -96,46 +101,37 @@ function draw() {
   text(`Time remaining: ${time}`, 20, 40);
   // text('Time remaining: ' + time, 20, 80);
   handleTime();
-  handleCoinCollision();
   handlePowerUpCollision();
   
   text(`Score: ${score}`, 20, 20);
 }
 
 function drawCoins() {
-  circle(coinX, coinY, 20);
+  coinRotation++;
+  // rotateZ(coinRotation);
+  image(coinImage, coinX, coinY, coinSize, coinSize);
+  // rotateZ(-coinRotation);
+  
+  // If Mario is hitting the coin, move the coin and update the score.
+  if (collideCircleCircle(mouseX, mouseY, marioSize, coinX, coinY, coinSize)) {
+    // Move the coin somewhere else.
+    coinX = random(width);
+    coinY = random(height);
+    score++;
+  }
 }
 
 function drawMario() {
   // We want the image to be centered over the mouse.
-  let marioX = mouseX - imageSize / 2;
-  let marioY = mouseY - imageSize / 2;
-  image(marioImage, marioX, marioY, imageSize, imageSize);
+  let marioX = mouseX - marioSize / 2;
+  let marioY = mouseY - marioSize / 2;
+  image(marioImage, marioX, marioY, marioSize, marioSize);
   // ellipse(mouseX, mouseY, 20);
 }
 
 function drawMushrooms() {
   fill('red');
   ellipse(powerUpX, powerUpY, 10);
-  fill('white');
-}
-
-function handleCoinCollision() {
-  // We'll write code for what happens if your character hits a coin.
-  
-  // If the mouse is hitting the coin, move the coin and update the score
-  let hit = false;
-  hit = collideCircleCircle(mouseX, mouseY, 20, coinX, coinY, 20);
-  
-  if (hit) {
-    // Move the coin somewhere else.
-    coinX = random(width);
-    coinY = random(height);
-    
-    score++;
-  }
-  
-  // collideCircleCircle(mouseX,mouseY,150,200,200,100)
 }
 
 function handlePowerUpCollision() {
