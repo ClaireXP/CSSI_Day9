@@ -6,6 +6,12 @@
                        
 -- Let's come up with goals together! --
 1) Make the time count down
+2) Figured out how to bring in a library
+3) Check if the mouse hits the coin
+3a) Move the coin somewhere else
+3b) Update the score
+4) stop the game when time is up
+5) Show 'game over' or something similar
 
   ____    _____   ____    _____   _____    ____   _   _ 
  / ___|  |_   _| |  _ \  | ____| |_   _|  / ___| | | | |
@@ -42,6 +48,7 @@
  *    mouseY,
  *    createCanvas,
  *    text,
+ *    collideCircleCircle,
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
@@ -56,6 +63,7 @@ function setup() {
   coinY = random(height);
   time = 1000;
   gameIsOver = false;
+  score = 0;
 }
 
 function draw() {
@@ -65,10 +73,31 @@ function draw() {
   text(`Time remaining: ${time}`, 20, 40);
   // text('Time remaining: ' + time, 20, 80);
   handleTime();
+  handleCollision();
+  
+  text(`Score: ${score}`, 20, 20);
 }
 
 function handleCollision() {
   // We'll write code for what happens if your character hits a coin.
+  
+  // If the mouse is hitting the coin, move the coin and update the score
+  let hit = false;
+  hit = collideCircleCircle(mouseX, mouseY, 20, coinX, coinY, 20);
+  
+  if (hit) {
+    text('hit!', 100, 100);
+    
+    // Move the coin somewhere else.
+    coinX = random(width);
+    coinY = random(height);
+    
+    score += 1;
+    // score = score + 1
+    // score++
+  }
+  
+  // collideCircleCircle(mouseX,mouseY,150,200,200,100)
 }
 
 function handleTime() {
