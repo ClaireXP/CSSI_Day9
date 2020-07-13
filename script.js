@@ -58,43 +58,50 @@
  *    rotateY, translate, angleMode, DEGREES,
  */
 
-let brushHue, backgroundColor, score, time, gameIsOver, hit;
-let coin1X, coin1Y;
-coin2X, coin2Y, coin3X, coin3Y;
+let backgroundImage;
+
+let score, time, gameIsOver;
+let coin1X, coin1Y, coin1Rotation;
+let coin2X, coin2Y, coin2Rotation;
+let coin3X, coin3Y, coin3Rotation;
 let powerUpX, powerUpY;
 let marioSize;
-let coinSize, coinRotation;
+let coinSize;
 
 let marioImage, coinImage;
 let productSansFont;
 
 function preload() {
+  backgroundImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fmario_64.webp?v=1594680390058');
   marioImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FPaper-Mario-icon.png?v=1594675429292');
   coinImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fcoin.png?v=1594677304311');
   productSansFont = loadFont('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FProductSans-Regular.ttf?v=1594678726380');
 }
 
 function setup() {
+  const backgroundImageAspectRatio = 970/647;
+  const canvasWidth = window.innerWidth - 10;
+  const canvasHeight = canvasWidth / backgroundImageAspectRatio;
   // Canvas & color settings
-  createCanvas(400, 400, WEBGL);
+  createCanvas(canvasWidth, canvasHeight, WEBGL);
   colorMode(HSB, 360, 100, 100);
-  brushHue = 0;
-  backgroundColor = 95;
   
+  angleMode(DEGREES);
   coin1X = random(width);
   coin1Y = random(height);
+  coin1Rotation = random(360);
   coin2X = random(width);
   coin2Y = random(height);
+  coin2Rotation = random(360);
   coin3X = random(width);
   coin3Y = random(height);
+  coin3Rotation = random(360);
   
   powerUpX = random(width);
   powerUpY = random(height);
   
   marioSize = 24;
   coinSize = 20;
-  coinRotation = 0;
-  angleMode(DEGREES);
 
   textFont(productSansFont);
   textSize(15);
@@ -104,7 +111,8 @@ function setup() {
 }
 
 function draw() {
-  background(backgroundColor);
+  background(100);
+  
   
   drawGameData();
   drawCoins();
@@ -133,43 +141,48 @@ function drawGameData() {
 function drawCoins() {
   // Draw each coin; if Mario is hitting it, move it and update the score.
 
-  drawCoin(coin1X, coin1Y);  
+  drawCoin(coin1X, coin1Y, coin1Rotation);
+  coin1Rotation -= 5; 
   if (collideCircleCircle(mouseX, mouseY, marioSize, coin1X, coin1Y, coinSize)) {
     // Move the coin somewhere else.
     coin1X = random(width);
     coin1Y = random(height);
+    coin1Rotation = 0;
     score++;
   }
 
-  drawCoin(coin2X, coin2Y);  
+  drawCoin(coin2X, coin2Y, coin2Rotation);  
+  coin2Rotation -= 5; 
   if (collideCircleCircle(mouseX, mouseY, marioSize, coin2X, coin2Y, coinSize)) {
     // Move the coin somewhere else.
     coin2X = random(width);
     coin2Y = random(height);
+    coin2Rotation = 0;
     score++;
   }
 
-  drawCoin(coin3X, coin3Y);  
+  drawCoin(coin3X, coin3Y, coin3Rotation); 
+  coin3Rotation -= 5;  
   if (collideCircleCircle(mouseX, mouseY, marioSize, coin3X, coin3Y, coinSize)) {
     // Move the coin somewhere else.
     coin3X = random(width);
     coin3Y = random(height);
+    coin3Rotation = 0;
     score++;
   }
 }
 
-function drawCoin(x, y) {
+function drawCoin(x, y, rotation) {
   // We want the image to be centered over the its coordinates.
   let coinImageX = x - width / 2 - coinSize / 2;
   let coinImageY = y - height / 2 - coinSize / 2;
-  coinRotation -= 5;
   
   translate(coinImageX, coinImageY);
-  rotateY(coinRotation);
+  rotateY(rotation);
   
-  image(coinImage, - coinSize / 2, - coinSize / 2, coinSize, coinSize);
+  image(coinImage, -coinSize / 2, -coinSize / 2, coinSize, coinSize);
   
-  rotateY(-coinRotation);
+  rotateY(-rotation);
   translate(-coinImageX, -coinImageY);
 }
 
