@@ -50,13 +50,14 @@
  *    text,
  *    collideCircleCircle,
  *    circle,
- *    loadImage,
+ *    loadImage, loadFont, textFont, textSize,
  *    image,
  *    fill,
  *    WEBGL,
  *    textAlign,
  *    RIGHT,
  *    LEFT,
+ *    rotateY,
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
@@ -65,10 +66,12 @@ let marioSize;
 let coinSize, coinRotation;
 
 let marioImage, coinImage;
+let productSansFont;
 
 function preload() {
   marioImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FPaper-Mario-icon.png?v=1594675429292');
   coinImage = loadImage('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2Fcoin.png?v=1594677304311');
+  productSansFont = loadFont('https://cdn.glitch.com/3a489548-02ed-4b83-aa36-a81617fdea0a%2FProductSans-Regular.ttf?v=1594678726380');
 }
 
 function setup() {
@@ -88,6 +91,8 @@ function setup() {
   coinSize = 20;
   coinRotation = 0;
 
+  textFont(productSansFont);
+  textSize(15);
   time = 1000;
   gameIsOver = false;
   score = 0;
@@ -104,12 +109,10 @@ function draw() {
 
 function drawGameData() {
   fill('black');
-  text(`Time remaining: ${time}`, 0, 0);
-  text(`Score: ${score}`, 0, 0);
-  // textAlign(LEFT);
-  // text(`Time remaining: ${time}`, 20 - width / 2, 40 - height / 2);
-  // textAlign(RIGHT);
-  // text(`Score: ${score}`, 20 - width / 2, 20 - height / 2);
+  textAlign(LEFT);
+  text(`Time remaining: ${time}`, 10 - width / 2, 20 - height / 2);
+  textAlign(RIGHT);
+  text(`Score: ${score}`, width / 2 - 10, 20 - height / 2);
 
   if (time > 0) {
     time = time - 1;
@@ -127,9 +130,9 @@ function drawCoins() {
   let coinImageX = coinX - width / 2 - coinSize / 2;
   let coinImageY = coinY - height / 2 - coinSize / 2;
   coinRotation++;
-  // rotateZ(coinRotation);
+  rotateY(coinRotation);
   image(coinImage, coinImageX, coinImageY, coinSize, coinSize);
-  // rotateZ(-coinRotation);
+  rotateY(-coinRotation);
   
   // If Mario is hitting the coin, move the coin and update the score.
   if (collideCircleCircle(mouseX, mouseY, marioSize, coinX, coinY, coinSize)) {
