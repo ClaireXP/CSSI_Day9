@@ -4,7 +4,7 @@
  | |_| | | |_| |  / ___ \  | |___   ___) |
   \____|  \___/  /_/   \_\ |_____| |____/ 
                        
-1) 
+-- Let's come up with goals together! --
 
   ____    _____   ____    _____   _____    ____   _   _ 
  / ___|  |_   _| |  _ \  | ____| |_   _|  / ___| | | | |
@@ -12,7 +12,18 @@
   ___) |   | |   |  _ <  | |___    | |   | |___  |  _  |
  |____/    |_|   |_| \_\ |_____|   |_|    \____| |_| |_|
 
-2)
+1)  Multiple coins on the screen at a time
+2)  Coins of varying values
+3)  Colors and decorations for coins
+4)  Time-extending power-ups
+5)  Coins that expire / move after a certain length of time.
+6)  A player token that grows or shrinks as coins are collected.
+7)  Coins that bounce around screen like the DVD logo did.
+8)  Coins that simulate the rotating motion of Mario coins.
+9)  A “restart” button or click function.
+10) A larger, more pronounced “game over” proclamation.
+11) A score rater (i.e. okay, good, great, outstanding!)
+12) A high score over multiple plays.
 
 */
 
