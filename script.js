@@ -54,6 +54,9 @@
  *    image,
  *    fill,
  *    WEBGL,
+ *    textAlign,
+ *    RIGHT,
+ *    LEFT,
  */
 
 let brushHue, backgroundColor, coinX, coinY, score, time, gameIsOver, hit;
@@ -93,23 +96,39 @@ function setup() {
 function draw() {
   background(backgroundColor);
   
+  drawGameData();
   drawCoins();
-  drawMario();
   drawMushrooms();
+  drawMario();
+}
+
+function drawGameData() {
+  fill('black');
+  text(`Time remaining: ${time}`, 0, 0);
+  text(`Score: ${score}`, 0, 0);
+  // textAlign(LEFT);
+  // text(`Time remaining: ${time}`, 20 - width / 2, 40 - height / 2);
+  // textAlign(RIGHT);
+  // text(`Score: ${score}`, 20 - width / 2, 20 - height / 2);
+
+  if (time > 0) {
+    time = time - 1;
+    // time -= 1;
+    // time--;
+  }
   
-  
-  text(`Time remaining: ${time}`, 20, 40);
-  // text('Time remaining: ' + time, 20, 80);
-  handleTime();
-  handlePowerUpCollision();
-  
-  text(`Score: ${score}`, 20, 20);
+  if (time == 0) {
+    gameIsOver = true;
+  }
 }
 
 function drawCoins() {
+  // We want the image to be centered over the its coordinates.
+  let coinImageX = coinX - width / 2 - coinSize / 2;
+  let coinImageY = coinY - height / 2 - coinSize / 2;
   coinRotation++;
   // rotateZ(coinRotation);
-  image(coinImage, coinX, coinY, coinSize, coinSize);
+  image(coinImage, coinImageX, coinImageY, coinSize, coinSize);
   // rotateZ(-coinRotation);
   
   // If Mario is hitting the coin, move the coin and update the score.
@@ -123,31 +142,13 @@ function drawCoins() {
 
 function drawMario() {
   // We want the image to be centered over the mouse.
-  let marioX = mouseX - marioSize / 2;
-  let marioY = mouseY - marioSize / 2;
+  let marioX = mouseX - width / 2 - marioSize / 2;
+  let marioY = mouseY - height / 2 - marioSize / 2;
   image(marioImage, marioX, marioY, marioSize, marioSize);
   // ellipse(mouseX, mouseY, 20);
 }
 
 function drawMushrooms() {
   fill('red');
-  ellipse(powerUpX, powerUpY, 10);
-}
-
-function handlePowerUpCollision() {
-  
-}
-
-function handleTime() {
-  if (time > 0) {
-    time = time - 1;
-    // time -= 1;
-    // time--;
-  }
-  
-  if (time == 0) {
-    gameIsOver = true;
-  }
-  
-  // We'll write code to handle the time.
+  ellipse(powerUpX - width / 2, powerUpY - height / 2, 10);
 }
