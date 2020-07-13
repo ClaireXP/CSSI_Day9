@@ -49,6 +49,7 @@ function draw() {
   fill('red');
   ellipse(powerUpX, powerUpY, 10);
   
+  fill('blue');
   text(`Your score is ${score}`, 20, 20);
   text(`Time remaining: ${time}`, 20, 40);
   handleTime();
@@ -73,7 +74,12 @@ function handleCoinCollision() {
 }
 
 function handlePowerUpCollision() {
-  
+  if (!gameIsOver) {
+    // text('power up!!', 100, 100);
+    time += 100;
+    powerUpX = random(width);
+    powerUpY = random(height);
+  }
 }
 
 function handleTime() {
