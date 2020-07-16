@@ -42,11 +42,6 @@ function setup() {
   can = createCanvas(windowWidth - 20, windowHeight - 20);
   colorMode(HSB, 360, 100, 100);
   
-  vSlide = createSlider(0, 10, 1, .1);
-  vSlide.position(15, 10);
-  numSlide = createSlider(1, 500, 50, 1);
-  numSlide.position(150, 10);
-  
   for (let i = 0; i < numDots; i++) dots.push(new BouncyDot(10, 30, .5, 3));
 }
 
@@ -56,14 +51,6 @@ function draw() {
     d.float();
     d.display();
     d.checkColl();
-  }
-  
-  if(numSlide != dots.length){
-    while(numSlide > dots.length){
-      dots.push({
-        new BouncyC
-      });
-    }
   }
 }
 
@@ -81,12 +68,10 @@ class BouncyDot {
     this.masterYvelocity = random(minV, maxV);
     // ...and use those as starting velocities.
     this.xVelocity = random([-this.masterXvelocity, this.masterXvelocity]);
-    this.yVelocity = random([-this.masterXvelocity, this.masterXvelocity]);
+    this.yVelocity = random([-this.masterYvelocity, this.masterYvelocity]);
   }
 
-  float() {
-    this.masterXvelocity *= vSlide.value();
-    
+  float() {    
     this.x += this.xVelocity;
     this.y += this.yVelocity;
     // Standard bounce code - like the DVD logo, but for spheres.
