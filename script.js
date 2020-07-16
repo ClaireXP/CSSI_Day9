@@ -28,25 +28,33 @@
  *    colorMode, HSB,
  *    background,
  *    random,
+ *    fill, noStroke, ellipse
  */
 
-let dot1;
+let dots = [];
+let numDots = 20;
+
+let can;
 
 function setup() {
-  createCanvas(windowWidth - 20, windowHeight - 20);
+  can = createCanvas(windowWidth - 20, windowHeight - 20);
   colorMode(HSB, 360, 100, 100);
-  dot1 = new BouncyDot();
+  for (let i = 0; i < 20; i++) {
+    dots[i] = new BouncyDot();
+  }
 }
 
 function draw() {
   background(220, 0, 80);
-  dot1.float();
-  dot1.display();
+  for (const d of dots) {
+    d.float();
+    d.display();
+  }
 }
 
-function mousePressed() {
+function mousePressed(can) {
   // We'll use this for console log statements only.
-  console.log(dot1.x);
+  console.log(dots);
 }
 
 class BouncyDot {
@@ -85,8 +93,12 @@ class BouncyDot {
   }
 
   display() {
-    fill(this.color, 80, 70);
+    fill(this.color, 40, 80);
     noStroke();
     ellipse(this.x, this.y, this.r * 2);
+  }
+
+  checkColl() {
+    
   }
 }
