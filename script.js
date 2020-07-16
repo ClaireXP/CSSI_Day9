@@ -29,19 +29,19 @@
  *    background,
  *    random,
  *    fill, noStroke, ellipse
+ *    collideCircleCircle
  */
 
 let dots = [];
-let numDots = 20;
+let numDots = 100;
 
 let can;
 
 function setup() {
   can = createCanvas(windowWidth - 20, windowHeight - 20);
   colorMode(HSB, 360, 100, 100);
-  for (let i = 0; i < 20; i++) {
-    dots[i] = new BouncyDot();
-  }
+  
+  for (let i = 0; i < numDots; i++) dots.push(new BouncyDot());
 }
 
 function draw() {
@@ -63,7 +63,7 @@ class BouncyDot {
     this.x = random(width);
     this.y = random(height);
     // Randomly generate radius
-    this.r = random(5, 12);
+    this.r = random(10, 30);
     // Randomly generate color
     this.color = random(360);
     // Randomly generate a master velocity (broken into components)...
@@ -95,10 +95,14 @@ class BouncyDot {
   display() {
     fill(this.color, 40, 80);
     noStroke();
-    ellipse(this.x, this.y, this.r * 2);
+    ellipse(this.x, this.y, this.r);
   }
 
   checkColl() {
-    
+    for(const d of dots){
+      let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
+      
+      if(hit) console
+    }
   }
 }
