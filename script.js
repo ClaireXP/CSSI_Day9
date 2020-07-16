@@ -12,7 +12,10 @@
   ___) |   | |   |  _ <  | |___    | |   | |___  |  _  |
  |____/    |_|   |_| \_\ |_____|   |_|    \____| |_| |_|
 
-1) 
+1) This code still has some literals that might be called
+   “magic numbers” in it. Find them and refactor them.
+2) Go back to the raindrops activity from yesterday -
+   refactor it with arrays and for loops.
 
 */
 
