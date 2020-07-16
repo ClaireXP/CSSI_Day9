@@ -33,15 +33,18 @@
  */
 
 let dots = [];
-let numDots = 30;
+let numDots = 50;
 
-let can;
+let can, vSlide, numSlide;
 
 function setup() {
   can = createCanvas(windowWidth - 20, windowHeight - 20);
   colorMode(HSB, 360, 100, 100);
   
-  for (let i = 0; i < numDots; i++) dots.push(new BouncyDot());
+  vSlide = createSlider(0, 10, 1, .1);
+  numSlide = createSlider(1, 500, 50, 1);
+  
+  for (let i = 0; i < numDots; i++) dots.push(new BouncyDot(10, 30, .5, 3));
 }
 
 function draw() {
@@ -54,17 +57,17 @@ function draw() {
 }
 
 class BouncyDot {
-  constructor() {
+  constructor(minR, maxR, minV, maxV) {
     // Randomly generate position
     this.x = random(width);
     this.y = random(height);
     // Randomly generate radius
-    this.r = random(10, 30);
+    this.r = random(minR, maxR);
     // Randomly generate color
     this.color = random(360);
     // Randomly generate a master velocity (broken into components)...
-    this.masterXvelocity = random(0.5, 3);
-    this.masterYvelocity = random(0.5, 3);
+    this.masterXvelocity = random(minV, maxV);
+    this.masterYvelocity = random(minV, maxV);
     // ...and use those as starting velocities.
     this.xVelocity = this.masterXvelocity;
     this.yVelocity = this.masterYvelocity;
@@ -99,11 +102,9 @@ class BouncyDot {
         let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
 
         if(hit){
-          this.xVelocity = -this.xVelocity;
-          this.yVelocity = -this.yVelocity;
-          d.xVelocity = -d.xVelocity;
-          d.yVelocity = -d.yVelocity;
-          break;
+          let blend = (this.color + d.color)/2;
+          this.color = blend;
+          d.color = blend;
         }
     }
   }
