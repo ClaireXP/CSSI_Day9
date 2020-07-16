@@ -53,11 +53,6 @@ function draw() {
   }
 }
 
-function mousePressed(can) {
-  // We'll use this for console log statements only.
-  console.log(dots);
-}
-
 class BouncyDot {
   constructor() {
     // Randomly generate position
