@@ -30,6 +30,7 @@
  *    random,
  *    fill, noStroke, ellipse
  *    collideCircleCircle
+ *    createSlider
  */
 
 let dots = [];
@@ -42,7 +43,9 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   
   vSlide = createSlider(0, 10, 1, .1);
+  vSlide.position(15, 10);
   numSlide = createSlider(1, 500, 50, 1);
+  numSlide.position(150, 10);
   
   for (let i = 0; i < numDots; i++) dots.push(new BouncyDot(10, 30, .5, 3));
 }
@@ -53,6 +56,14 @@ function draw() {
     d.float();
     d.display();
     d.checkColl();
+  }
+  
+  if(numSlide != dots.length){
+    while(numSlide > dots.length){
+      dots.push({
+        new BouncyC
+      });
+    }
   }
 }
 
@@ -69,12 +80,13 @@ class BouncyDot {
     this.masterXvelocity = random(minV, maxV);
     this.masterYvelocity = random(minV, maxV);
     // ...and use those as starting velocities.
-    this.xVelocity = this.masterXvelocity;
-    this.yVelocity = this.masterYvelocity;
-    this.nextColor - "";
+    this.xVelocity = random([-this.masterXvelocity, this.masterXvelocity]);
+    this.yVelocity = random([-this.masterXvelocity, this.masterXvelocity]);
   }
 
   float() {
+    this.masterXvelocity *= vSlide.value();
+    
     this.x += this.xVelocity;
     this.y += this.yVelocity;
     // Standard bounce code - like the DVD logo, but for spheres.
@@ -103,13 +115,9 @@ class BouncyDot {
       let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
 
       if(hit){
-        this.nextColor = d.color;
-        d.nextColor = this.color;
-      }else{
-        if(this.color!="none"){
-          this.color = this.nextColor;
-          this.nextColor = "none";
-        }
+        let swap = this.color
+        this.color = d.color;
+        d.color = swap;
       }
     }
   }
