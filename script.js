@@ -33,7 +33,7 @@
  */
 
 let dots = [];
-let numDots = 100;
+let numDots = 30;
 
 let can;
 
@@ -49,6 +49,7 @@ function draw() {
   for (const d of dots) {
     d.float();
     d.display();
+    d.checkColl();
   }
 }
 
@@ -100,9 +101,15 @@ class BouncyDot {
 
   checkColl() {
     for(const d of dots){
-      let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
-      
-      if(hit) console
+        let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
+
+        if(hit){
+          this.xVelocity = -this.xVelocity;
+          this.yVelocity = -this.yVelocity;
+          d.xVelocity = -d.xVelocity;
+          d.yVelocity = -d.yVelocity;
+          break;
+        }
     }
   }
 }
