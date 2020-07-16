@@ -4,7 +4,10 @@
  | |_| | | |_| |  / ___ \  | |___   ___) |
   \____|  \___/  /_/   \_\ |_____| |____/ 
                        
-1) 
+1) Create arrays
+2) Add elements to arrays
+3) Access elements from arrays
+4) Iterate over an array with a for loop
 
   ____    _____   ____    _____   _____    ____   _   _ 
  / ___|  |_   _| |  _ \  | ____| |_   _|  / ___| | | | |
