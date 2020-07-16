@@ -71,6 +71,7 @@ class BouncyDot {
     // ...and use those as starting velocities.
     this.xVelocity = this.masterXvelocity;
     this.yVelocity = this.masterYvelocity;
+    this.nextColor - null;
   }
 
   float() {
@@ -99,13 +100,18 @@ class BouncyDot {
 
   checkColl() {
     for(const d of dots){
-        let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
+      let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
 
-        if(hit){
-          let blend = (this.color + d.color)/2;
-          this.color = blend;
-          d.color = blend;
-        }
+      if(hit){
+        this.nextColor = d.color;
+        d.nextColor = this.color;
+      }
+      
+      if(!hit && this.color!=null){
+          
+      }if(!hit && d.color!=null){
+          
+      }
     }
   }
 }
