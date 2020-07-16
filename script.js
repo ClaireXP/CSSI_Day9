@@ -69,6 +69,7 @@ class BouncyDot {
     // ...and use those as starting velocities.
     this.xVelocity = random([-this.masterXvelocity, this.masterXvelocity]);
     this.yVelocity = random([-this.masterYvelocity, this.masterYvelocity]);
+    this.quadrant = 1;
   }
 
   float() {    
@@ -87,6 +88,7 @@ class BouncyDot {
     if (this.y - this.r < 0) {
       this.yVelocity = this.masterYvelocity;
     }
+    // if(this.y<windowHeight/2)
   }
 
   display() {
@@ -97,12 +99,14 @@ class BouncyDot {
 
   checkColl() {
     for(const d of dots){
-      let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
+      if(d != this){
+        let hit = collideCircleCircle(this.x, this.y, this.r, d.x, d.y, d.r);
 
-      if(hit){
-        let swap = this.color
-        this.color = d.color;
-        d.color = swap;
+        if(hit){
+          let swap = this.color
+          this.color = d.color;
+          d.color = swap;
+        }
       }
     }
   }
