@@ -71,7 +71,7 @@ class BouncyDot {
     // ...and use those as starting velocities.
     this.xVelocity = this.masterXvelocity;
     this.yVelocity = this.masterYvelocity;
-    this.nextColor - null;
+    this.nextColor - "";
   }
 
   float() {
@@ -105,12 +105,11 @@ class BouncyDot {
       if(hit){
         this.nextColor = d.color;
         d.nextColor = this.color;
-      }
-      
-      if(!hit && this.color!=null){
-          
-      }if(!hit && d.color!=null){
-          
+      }else{
+        if(this.color!="none"){
+          this.color = this.nextColor;
+          this.nextColor = "none";
+        }
       }
     }
   }
